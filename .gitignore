@@ -1,0 +1,9 @@
+# Build artifacts
+Output/
+Debug/
+Release/
+
+# Visual Studio
+*.vs/
+*.suo
+*.user
