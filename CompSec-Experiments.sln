@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{73026122-259D-44C3-82F3-E1C374DA647D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompSec", "Sources\CompSec\CompSec.vcxproj", "{CF0F222D-0642-499C-897B-3404CE05944D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -38,6 +42,12 @@ Global
 		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}.Release|x64.ActiveCfg = Release|Win32
 		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}.Release|x86.ActiveCfg = Release|Win32
 		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}.Release|x86.Build.0 = Release|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Debug|x64.ActiveCfg = Debug|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Debug|x86.Build.0 = Debug|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x64.ActiveCfg = Release|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.ActiveCfg = Release|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +55,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2E979E84-6789-46C1-92B1-925485CBF67E} = {7A5141C0-C708-4867-891C-C621F6599DCC}
 		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE} = {7A5141C0-C708-4867-891C-C621F6599DCC}
+		{CF0F222D-0642-499C-897B-3404CE05944D} = {73026122-259D-44C3-82F3-E1C374DA647D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A29DDE52-7A36-4824-A37B-FDE2BE2975E0}
