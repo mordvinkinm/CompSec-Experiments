@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ByteArray.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Io.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteArray.h" />
+    <ClInclude Include="Container.h" />
     <ClInclude Include="Io.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
