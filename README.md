@@ -2,7 +2,9 @@
 
 This is a student project to learn more about x86 executables structure, play with injections into executable files and stuff like that.
 
-Below you will find description of PoC applications and techniques used
+Below you will find description of PoC applications and techniques used.
+
+Please note, that PoC only works with x86 applications and file paths should contain only ASCII characters.
 
 
 # Applications #
@@ -11,17 +13,17 @@ Below you will find description of PoC applications and techniques used
 The main idea is to protect arbitrary executable with password without modifying target executable itself.
 
 From technical perspective, it performs following steps:
- 1. Reads self byte content, checks for signature
- 2. Reads target file, with both exe headers and content
- 3. Encrypts byte content of target file
- 4. Concatenates self byte content with encrypted content of a target file (see Container description)
- 5. Copies concatenated content into new executable file
+ * Reads self byte content, checks for signature
+ * Reads target file, with both exe headers and content
+ * Encrypts byte content of target file
+ * Concatenates self byte content with encrypted content of a target file (see Container description)
+ * Copies concatenated content into new executable file
 
 When user runs file from #5 following steps are performed:
- 1. Application reads self byte content
- 2. If signature found, then extracts data stored in container inside of self byte content (see Container) description
- 3. Decrypts extracted byte array
- 4. Runs decrypted executable, creating a new process and injecting decrypted executable into it (see Injector description)
+ * Application reads self byte content
+ * If signature found, then extracts data stored in container inside of self byte content (see Container) description
+ * Decrypts extracted byte array
+ * Runs decrypted executable, creating a new process and injecting decrypted executable into it (see Injector description)
 
 This PoC must be compiled for x86 platform and without optimizations. Target applications must be x86.
 
