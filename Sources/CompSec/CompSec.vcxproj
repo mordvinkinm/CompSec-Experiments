@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ByteArray.cpp" />
+    <ClCompile Include="Io.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteArray.h" />
+    <ClInclude Include="Io.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CF0F222D-0642-499C-897B-3404CE05944D}</ProjectGuid>
