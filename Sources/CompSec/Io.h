@@ -13,7 +13,7 @@
  *
  * @param filename path to file
  *
- * @returns byte array with file content
+ * @returns byte_array Byte array with file content
  *
  **************************************************************/
 byte_array read_file(std::string filename);
@@ -24,7 +24,7 @@ byte_array read_file(std::string filename);
  *
  * @param filename path to file
  *
- * @returns byte array with file content
+ * @returns byte_array Byte array with file content
  *
  **************************************************************/
 byte_array read_file(std::wstring filename);
