@@ -38,9 +38,11 @@ bool run_pe(byte_array exe, std::wstring hostProcess, std::wstring optionalArgum
 	int alloc_attempts = 0;
 	const int max_alloc_attempts = 1000;
 	LPVOID alloc_result;
+
 	do {
 		alloc_result = VirtualAllocEx(process_info.hProcess, (void*)nt_headers.OptionalHeader.ImageBase, nt_headers.OptionalHeader.SizeOfImage, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	} while (alloc_result == NULL && alloc_attempts < max_alloc_attempts);
+
 	if (alloc_attempts == max_alloc_attempts){
 		std::cerr << "Cannot allocate memory, task terminated. Error code: " << GetLastError() << std::endl;
 		return false;

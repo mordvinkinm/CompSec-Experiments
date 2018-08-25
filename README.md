@@ -42,7 +42,7 @@ Source code of a container can be found in Container.h and Container.cpp
 The main idea is to run executable from in-memory byte array. To do that, we run "host" application from disk and inject in-memory byte array into host application.
 
 * Create host application process in suspended state
-* Clean up host application memory - freeing old memory and allocation additional one
+* Clean up host application memory - freeing old memory and allocating additional
 * Copy exe headers from in-memory byte array into special structures - DOS_HEADERS and NT_HEADERS - and inject them into host app memory
 * Inject executable sections into host app memory
 * Write additional information into host app
