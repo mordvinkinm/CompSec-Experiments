@@ -49,7 +49,7 @@ byte_array read_file(std::string filename) {
 void write_file(std::wstring filename, byte_array data) {
 	std::ofstream file(filename, std::ios::binary);
 	if (!file) {
-		throw std::ifstream::failure(strerror(errno));
+		throw std::ofstream::failure(strerror(errno));
 	}
 
 	file.write(data.pointer, data.size);
