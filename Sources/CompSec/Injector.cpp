@@ -110,3 +110,63 @@ bool run_pe(byte_array exe, std::wstring hostProcess, std::wstring optionalArgum
 
 	return true;
 }
+
+/*****************************************************************
+ * 
+ * Reads memory of a particular process as a binary array.
+ *
+ * Wrapper for WinApi's ReadProcessMemory function.
+ * 
+ *****************************************************************/
+byte_array read_proc_memory(HANDLE handle, void* ptr, size_t size){
+    char * buf = new char[size];
+    SIZE_T bytes_read;
+    ReadProcessMemory(handle, ptr, buf, size, &bytes_read);
+
+    int last_error = GetLastError();
+    if (bytes_read == 0 || last_error != 0){
+        std::cerr << "Failed to read process memory. Bytes read: " << bytes_read << "; WinApi code: " << last_error << std::endl;
+		return to_byte_array(NULL, 0);
+    }
+
+    return to_byte_array(buf, size);
+}
+
+/****************************************************************
+ * 
+ * Reads memory of a current process as a binary array.
+ *
+ * Wrapper for WinApi's ReadProcessMemory function.
+ * 
+ ****************************************************************/
+byte_array read_current_proc_memory(void* ptr, size_t size) {
+    return read_proc_memory(GetCurrentProcess(), ptr, size);
+}
+
+/****************************************************************
+ *
+ * Re-writes memory of a particular process using binary array provider.
+ *
+ * Wrapper for WInApi's WriteProcessMemory function
+ *
+ ****************************************************************/
+void write_proc_memory(HANDLE handle, void* ptr, byte_array data){
+    SIZE_T bytes_written;
+    WriteProcessMemory(handle, ptr, data.pointer, data.size, &bytes_written);
+
+    int last_error = GetLastError();
+    if (bytes_written == 0 || last_error != 0){
+		std::cerr << "Error! Bytes written: " << bytes_written << "; WinApi code: " << last_error << std::endl;
+    }
+}
+
+/****************************************************************
+ *
+ * Re-writes memory of a current process using binary array provider.
+ *
+ * Wrapper for WinApi's WriteProcessMemory function
+ *
+ ****************************************************************/
+void write_current_proc_memory(void* ptr, byte_array data) {
+    write_proc_memory(GetCurrentProcess(), ptr, data);
+}

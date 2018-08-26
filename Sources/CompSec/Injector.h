@@ -21,4 +21,56 @@ typedef LONG (WINAPI * NtUnmapViewOfSection)(HANDLE ProcessHandle, PVOID BaseAdd
  ***************************************************************/
 bool run_pe(byte_array executable, std::wstring host_process, std::wstring optional_args);
 
+/*****************************************************************
+ *
+ * Reads memory of a particular process as a binary array.
+ *
+ * @param handle process' handle
+ * @param ptr address in memory to read
+ * @param size number of bytes to read
+ *
+ * @returns binary data of a process memory or byte_array(NULL, 0)
+ *	in case of failure
+ *
+ *****************************************************************/
+byte_array read_proc_memory(HANDLE handle, void* ptr, size_t size);
+
+/****************************************************************
+ *
+ * Reads memory of a current process as a binary array.
+ *
+ * @param ptr address in memory to read
+ * @param size number of bytes to read
+ *
+ * @returns binary data of a current process memory 
+ *	or byte_array(NULL, 0) in case of failure
+ *
+ ****************************************************************/
+byte_array read_current_proc_memory(void* ptr, size_t size);
+
+/****************************************************************
+ *
+ * Re-writes memory of a particular process using binary array provider.
+ *
+ * @param handle process' handler
+ * @param ptr address in memory to write
+ * @param data structure, that contains pointer to data and size of data
+ *
+ * @returns none
+ *
+ ****************************************************************/
+void write_proc_memory(HANDLE handle, void* ptr, byte_array data);
+
+/****************************************************************
+ *
+ * Re-writes memory of a current process using binary array provider.
+ *
+ * @param ptr address in memory to write
+ * @param data structure, that contains pointer to data and size of data
+ *
+ * @returns none
+ *
+ ****************************************************************/
+void write_current_proc_memory(void* ptr, byte_array data);
+
 #endif INJECTOR
