@@ -27,6 +27,22 @@ When user runs file from #5 following steps are performed:
 
 This PoC must be compiled for x86 platform and without optimizations. Target applications must be x86.
 
+## Decrypt Self Functions ##
+
+The main idea is to protect application by encrypting its methods after compilation and decrypting its methods in runtime.
+
+From technical perspective, it performs following steps:
+* After compilation:
+** Find addresses of functions need to be encrypted
+** Determine end of functions by looking for RET instruction
+** Encrypt result (i.e. binary data between function address and RET instruction) using any encryption algorithm (in our case, XOR)
+
+* In runtime:
+** Read process memory
+** Before function call, invoke "decrypt" function that takes address of a target function and encrypts memory until RET instruction is found in binary array 
+** After function call, invoke "encrypt" function, that works in the same way as "decrypt"
+** Write process memory
+
 # Approaches #
 ## Container ##
 
