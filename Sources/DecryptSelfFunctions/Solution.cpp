@@ -8,11 +8,11 @@
 const std::string Key = "THIS IS SECRED KEY!";
 
 void method_01(int cnt){
-    printf("Hello, I am method 01. I receive integer as parameter, but absolutely useless :(");
+    printf("Hello, I am method 01. I receive integer as parameter, but absolutely useless :(\n");
 }
 
 int method_02(std::string data) {
-    printf("Hello, I am method_02. I simply calculates string lenth");
+    printf("Hello, I am method_02. I simply calculates string lenth\n");
     int result = data.size();
 
     return result;

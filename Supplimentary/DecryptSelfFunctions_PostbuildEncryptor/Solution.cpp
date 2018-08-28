@@ -4,8 +4,8 @@
 // list of function offsets
 size_t offsetCnt = 2;
 int offsets[2] = { 
-    0x9b0   // method_01
-    ,0x9d0  // method_02
+    0x610   // method_01
+    ,0x630  // method_02
 };
 
 const std::string Key = "THIS IS SECRED KEY!";
@@ -33,5 +33,6 @@ int main(int argc, char* argv[]) {
     printf("Encryption completed\n");
 
     system("pause");
-    return 0;
+
+    return EXIT_SUCCESS;
 }

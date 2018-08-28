@@ -33,7 +33,7 @@ The main idea is to protect application by encrypting its methods after compilat
 
 From technical perspective, it performs following steps:
 * After compilation:
-** Find addresses of functions need to be encrypted
+** Find offset of functions need to be encrypted in binary executable (please see "how to find offsets" section)
 ** Determine end of functions by looking for RET instruction
 ** Encrypt result (i.e. binary data between function address and RET instruction) using any encryption algorithm (in our case, XOR)
 
@@ -42,6 +42,21 @@ From technical perspective, it performs following steps:
 ** Before function call, invoke "decrypt" function that takes address of a target function and encrypts memory until RET instruction is found in binary array 
 ** After function call, invoke "encrypt" function, that works in the same way as "decrypt"
 ** Write process memory
+
+* How to find offsets. Currently we found offsets manually, by performing following steps:
+** Run DecryptSelfFunctions in release configuration
+** Go to method01 / method02 calls, skipping "decrypt" functions
+** Go to disassembly listing
+** Check byte code of functions
+** Find offset in a hex-editor, searching for byte sequence from previous step
+** Modify PostbuildEncryption, put offsets of both functions into static array
+
+p.s.
+This sample is sensitive to compiler output - thus all optimizations disabled
+
+p.p.s
+If you have better ideas of how to implement it - please post a suggestion
+
 
 # Approaches #
 ## Container ##
