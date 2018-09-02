@@ -57,6 +57,28 @@ This sample is sensitive to compiler output - thus all optimizations disabled
 p.p.s
 If you have better ideas of how to implement it - please post a suggestion
 
+## Partition Lock ##
+
+The main idea of this PoC is to allow running of an application only from one drive, i.e. if you run application once from drive C:\ - you won't be able to run application from different drive.
+
+This is a naive implementation without additional techiniques, like encryption etc.
+
+From technical perspective, it performs following steps:
+* Read self content
+
+* If it contains signature
+** Extracts volume id stored in executable
+** Checks extracted volume id against extracted
+** If they are equal, then run application
+** Otherwise, show error message
+
+* If executable doesn't contain signature, then we consider it as "initial run"
+** Read current drive letter
+** Copy "host" application from memory to disc
+** Run "host" applciation and inject self into it with proper parameters, shut down main app
+** Injected app will modify original executable, adding drive letter to it
+** Run modified executable with proper parameters, shut down injected app
+** Modified executable drops host app
 
 # Approaches #
 ## Container ##
