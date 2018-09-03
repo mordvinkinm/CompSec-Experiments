@@ -61,7 +61,7 @@ If you have better ideas of how to implement it - please post a suggestion
 
 The main idea of this PoC is to allow running of an application only from one drive, i.e. if you run application once from drive C:\ - you won't be able to run application from different drive.
 
-This is a naive implementation without additional techiniques, like encryption etc.
+This is a naive implementation without additional techiniques, like encryption.
 
 From technical perspective, it performs following steps:
 * Read self content
@@ -74,11 +74,9 @@ From technical perspective, it performs following steps:
 
 * If executable doesn't contain signature, then we consider it as "initial run"
 ** Read current drive letter
-** Copy "host" application from memory to disc
-** Run "host" applciation and inject self into it with proper parameters, shut down main app
-** Injected app will modify original executable, adding drive letter to it
+** Run 32 bit "svchost.exe" and inject self into it with proper parameters, shut down main app
+** Injected app modifies original executable, making a container and adding drive letter as a payload
 ** Run modified executable with proper parameters, shut down injected app
-** Modified executable drops host app
 
 # Approaches #
 ## Container ##
