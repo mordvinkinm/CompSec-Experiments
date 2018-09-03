@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supplimentary", "Suppliment
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleApplication", "Supplimentary\SampleApplication\SampleApplication.vcxproj", "{2E979E84-6789-46C1-92B1-925485CBF67E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Host", "Supplimentary\Host\Host.vcxproj", "{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A83DE04-FA16-45D1-BF8A-2D2A7AF27163}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -37,8 +35,6 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2E979E84-6789-46C1-92B1-925485CBF67E}.Release|x86.ActiveCfg = Release|Win32
 		{2E979E84-6789-46C1-92B1-925485CBF67E}.Release|x86.Build.0 = Release|Win32
-		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}.Release|x86.ActiveCfg = Release|Win32
-		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE}.Release|x86.Build.0 = Release|Win32
 		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.ActiveCfg = Release|Win32
 		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.Build.0 = Release|Win32
 		{F041040D-CF75-46F9-B228-69AF65C69A32}.Release|x86.ActiveCfg = Release|Win32
@@ -55,7 +51,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2E979E84-6789-46C1-92B1-925485CBF67E} = {7A5141C0-C708-4867-891C-C621F6599DCC}
-		{12EA11AA-EC1A-4C37-8AC5-EF233EEA70BE} = {7A5141C0-C708-4867-891C-C621F6599DCC}
 		{CF0F222D-0642-499C-897B-3404CE05944D} = {73026122-259D-44C3-82F3-E1C374DA647D}
 		{F041040D-CF75-46F9-B228-69AF65C69A32} = {73026122-259D-44C3-82F3-E1C374DA647D}
 		{CF8279F8-8115-45A0-9409-0E675FD35560} = {73026122-259D-44C3-82F3-E1C374DA647D}
