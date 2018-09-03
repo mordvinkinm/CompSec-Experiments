@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Injector.h"
+#include "Io.h"
 
 /****************************************************************
  *
@@ -25,7 +26,16 @@ bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arg
  * Runs an application from in-memory byte array
  *
  ***************************************************************/
-bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments, DWORD startup_flags)
+bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments, DWORD startup_flags) {
+	return run_pe(exe, host_process, optional_arguments, startup_flags, get_folder_name(host_process));
+}
+
+/****************************************************************
+ *
+ * Runs an application from in-memory byte array
+ *
+ ***************************************************************/
+bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments, DWORD startup_flags, std::wstring working_directory)
 {
 	int error_code;
 	IMAGE_DOS_HEADER dos_header;
@@ -43,7 +53,7 @@ bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arg
 
 	PROCESS_INFORMATION process_info;
 	ZeroMemory(&process_info, sizeof(PROCESS_INFORMATION));
-	if (!CreateProcess((LPCWSTR)(host_process.c_str()), (LPWSTR)(optional_arguments.c_str()), NULL, NULL, false, startup_flags, NULL, NULL, &StartupInfo, &process_info)){
+	if (!CreateProcess((LPCWSTR)(host_process.c_str()), (LPWSTR)(optional_arguments.c_str()), NULL, NULL, false, startup_flags, NULL, (LPCWSTR)(working_directory.c_str()), &StartupInfo, &process_info)){
 		std::cerr << "Error during started host process, task terminated. Error code: " << GetLastError() << std::endl;
 		return false;
 	}

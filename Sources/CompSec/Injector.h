@@ -47,6 +47,21 @@ bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arg
  ***************************************************************/
 bool run_pe(byte_array executable, std::wstring host_process, std::wstring optional_args, DWORD startup_flags);
 
+/****************************************************************
+ *
+ * Runs an application from in-memory byte array
+ *
+ * @param executable binary data of executable we need to run
+ * @param host_process path to a process that will be host application
+ * @param optional_args optional args to run host application
+ * @param startup_flags application run flags
+ * @param working_directory current directory
+ *
+ * @returns bool false if run failed and true in case of success
+ *
+ ***************************************************************/
+bool run_pe(byte_array executable, std::wstring host_process, std::wstring optional_args, DWORD startup_flags, std::wstring working_directory);
+
 /*****************************************************************
  *
  * Reads memory of a particular process as a binary array.
