@@ -84,7 +84,7 @@ bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arg
 	}
 
 	// Injecting sections
-	for (size_t i = 0; i < nt_headers.OptionalHeader.NumberOfRvaAndSizes; i++)
+	for (size_t i = 0; i < nt_headers.FileHeader.NumberOfSections; i++)
 	{
 		IMAGE_SECTION_HEADER section_header;
 		memcpy(
