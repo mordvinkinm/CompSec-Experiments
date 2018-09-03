@@ -49,4 +49,28 @@ void write_file(std::string filename, byte_array data);
  **************************************************************/
 void write_file(std::wstring filename, byte_array data);
 
+/***************************************************************
+ *
+ * Get folder name from a full file path (without trailing slash)
+ * For input "C:\temp\example.exe" it returns "C:\temp"
+ *
+ * @param file_path absolute file path
+ * 
+ * @returns std::wstring 
+ *
+ **************************************************************/
+std::wstring get_folder_name(std::wstring file_path);
+
+/***************************************************************
+ *
+ * Get file name from a full file path
+ * For input "C:\temp\example.exe" it returns "example.exe"
+ *
+ * @param file_path absolute file path
+ *
+ * @returns std::wstring
+ *
+ **************************************************************/
+std::wstring get_file_name(std::wstring file_path);
+
 #endif /* IO_H */
