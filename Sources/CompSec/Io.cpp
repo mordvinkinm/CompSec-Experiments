@@ -1,4 +1,5 @@
 #include "Io.h"
+#include "StringConverter.h"
 
 /***************************************************************
  *
@@ -38,7 +39,7 @@ byte_array read_file(std::wstring filename) {
  *
  **************************************************************/
 byte_array read_file(std::string filename) {
-	return read_file(std::wstring(filename.begin(), filename.end()));
+	return read_file(string_to_wstring(filename));
 }
 
 /***************************************************************
@@ -63,5 +64,31 @@ void write_file(std::wstring filename, byte_array data) {
  *
  **************************************************************/
 void write_file(std::string filename, byte_array data) {
-	write_file(std::wstring(filename.begin(), filename.end()), data);
+	write_file(string_to_wstring(filename), data);
+}
+
+/***************************************************************
+ *
+ * Get folder name from a full file path (without trailing slash)
+ *
+ * For input "C:\temp\example.exe" it returns "C:\temp"
+ *
+ **************************************************************/
+std::wstring get_folder_name(std::wstring file_path) {
+	int slashpos = file_path.find_last_of('\\');
+
+	return file_path.substr(0, slashpos);
+}
+
+/***************************************************************
+ *
+ * Get file name from a full file path
+ *
+ * For input "C:\temp\example.exe" it returns "example.exe"
+ *
+ **************************************************************/
+std::wstring get_file_name(std::wstring file_path) {
+	int dotpos = file_path.find_last_of('\\');
+
+	return file_path.substr(dotpos + 1, 999999);
 }

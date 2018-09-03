@@ -1,13 +1,41 @@
 #include <iostream>
 
 #include "Injector.h"
+#include "Io.h"
 
 /****************************************************************
  *
  * Runs an application from in-memory byte array
  *
  ***************************************************************/
-bool run_pe(byte_array exe, std::wstring hostProcess, std::wstring optionalArguments = L"")
+bool run_pe(byte_array exe, std::wstring host_process) {
+	return run_pe(exe, host_process, L"");
+}
+
+/****************************************************************
+ *
+ * Runs an application from in-memory byte array
+ *
+ ***************************************************************/
+bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments) {
+	return run_pe(exe, host_process, optional_arguments, CREATE_SUSPENDED);
+}
+
+/****************************************************************
+ *
+ * Runs an application from in-memory byte array
+ *
+ ***************************************************************/
+bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments, DWORD startup_flags) {
+	return run_pe(exe, host_process, optional_arguments, startup_flags, get_folder_name(host_process));
+}
+
+/****************************************************************
+ *
+ * Runs an application from in-memory byte array
+ *
+ ***************************************************************/
+bool run_pe(byte_array exe, std::wstring host_process, std::wstring optional_arguments, DWORD startup_flags, std::wstring working_directory)
 {
 	int error_code;
 	IMAGE_DOS_HEADER dos_header;
@@ -25,7 +53,7 @@ bool run_pe(byte_array exe, std::wstring hostProcess, std::wstring optionalArgum
 
 	PROCESS_INFORMATION process_info;
 	ZeroMemory(&process_info, sizeof(PROCESS_INFORMATION));
-	if (!CreateProcess((LPCWSTR)(hostProcess.c_str()), (LPWSTR)(optionalArguments.c_str()), NULL, NULL, false, CREATE_SUSPENDED, NULL, NULL, &StartupInfo, &process_info)){
+	if (!CreateProcess((LPCWSTR)(host_process.c_str()), (LPWSTR)(optional_arguments.c_str()), NULL, NULL, false, startup_flags, NULL, (LPCWSTR)(working_directory.c_str()), &StartupInfo, &process_info)){
 		std::cerr << "Error during started host process, task terminated. Error code: " << GetLastError() << std::endl;
 		return false;
 	}
@@ -56,7 +84,7 @@ bool run_pe(byte_array exe, std::wstring hostProcess, std::wstring optionalArgum
 	}
 
 	// Injecting sections
-	for (size_t i = 0; i < nt_headers.OptionalHeader.NumberOfRvaAndSizes; i++)
+	for (size_t i = 0; i < nt_headers.FileHeader.NumberOfSections; i++)
 	{
 		IMAGE_SECTION_HEADER section_header;
 		memcpy(
