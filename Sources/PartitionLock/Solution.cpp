@@ -6,8 +6,6 @@
 #include "Container.h"
 #include "StringConverter.h"
 
-#include "Host.h"
-
 const std::string patch_mode = std::string("patch");
 
 const std::string Sign = "VLM";
