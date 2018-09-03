@@ -4,11 +4,12 @@
 #include "ByteArray.h"
 #include "Injector.h"
 #include "Container.h"
+#include "StringConverter.h"
 
 #include "Host.h"
 
-const std::string patch_mode = "patch";
-const std::string after_patching_mode = "after_patching";
+const std::string patch_mode = std::string("patch");
+const std::string after_patching_mode = std::string("after_patching");
 
 const std::string Sign = "VLM";
 const byte_array Signature = str_to_bytearray(Sign);
@@ -22,37 +23,50 @@ int get_volume_id(std::wstring path) {
 	return volume_id;
 }
 
-std::wstring get_host_filename(std::wstring self_path) {
-	int dotpos = self_path.find_last_of('\\');
-	std::wstring folder_path = self_path.substr(0, dotpos);
-	std::wstring host_filename = folder_path + L"\\host.exe";
-
-	return host_filename;
-}
-
 void run_application() {
 	std::cout << "Program works!" << std::endl;
 }
 
-void main_routine(std::wstring self_path) {
+void log(std::string message) {
+	std::ofstream outfile;
+	outfile.open("C:\\Users\\Mikhail\\Repositories\\Public\\CompSec-Experiments\\Output\\Release\\log.txt", std::ios_base::app);
+	outfile << message << std::endl;
+	outfile.close();
+}
+
+void log(std::wstring message) {
+	std::wofstream outfile;
+	outfile.open("C:\\Users\\Mikhail\\Repositories\\Public\\CompSec-Experiments\\Output\\Release\\log.txt", std::ios_base::app);
+	outfile << message << std::endl;
+	outfile.close();
+}
+
+int main_routine(std::wstring self_path) {
+	log("Main routine: started");
+
 	byte_array self = read_file(self_path);
 	byte_array self_unwrapped = container_get_host(self, Signature);
 
 	// Pointer == NULL - initial run, otherwise application have been run at least once
 	if (self_unwrapped.pointer == NULL) {
 		// Determine filename for the new host app
-		std::wstring host_filename = get_host_filename(self_path);
+		std::wstring host_filename = get_folder_name(self_path) + L"\\Host.exe";
 
 		// Write host app to the hard drive
 		int host_data_length = sizeof(host_app_data) / sizeof(*host_app_data);
 		byte_array host_data = to_byte_array(host_app_data, host_data_length);
-		write_file(host_filename, host_data);
+
+		try {
+			write_file(host_filename, host_data);
+		}
+		catch(std::ofstream::failure e) {
+			std::cerr << "Failure occurred while writing host executable to disk, shutting down..." << std::endl << e.what() << std::endl;
+			return EXIT_FAILURE;
+		}
 
 		// Run host app
-		printf("Creting...");
-		std::wstring cmdline_args = std::wstring(patch_mode.begin(), patch_mode.end());
-		run_pe(host_data, host_filename, cmdline_args);
-		printf("DONE!!!");
+		std::wstring cmdline_args = host_filename + L" " + string_to_wstring(patch_mode) + L" \"" + get_file_name(self_path) + L"\"";
+		run_pe(self, host_filename, cmdline_args, CREATE_SUSPENDED | CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW, get_folder_name(self_path));
 	}
 	else {
 		// Application was run once
@@ -68,12 +82,16 @@ void main_routine(std::wstring self_path) {
 		else {
 			run_application();
 		}
+
+		system("pause");
 	}
+
+	return EXIT_SUCCESS;
 }
 
 std::wstring get_self_path(char* argv_path) {
 	std::string cmd_s(argv_path);
-	std::wstring cmd_ws(cmd_s.begin(), cmd_s.end());
+	std::wstring cmd_ws = string_to_wstring(std::string(argv_path));
 	LPCWSTR cmd_lws = (LPCWSTR)(cmd_ws.c_str());
 
 	LPTSTR lpBuffer = new TCHAR[2048];
@@ -82,16 +100,22 @@ std::wstring get_self_path(char* argv_path) {
 	return std::wstring(lpBuffer);
 }
 
-int patch_self(std::wstring self_path) {
+int patch_self(std::wstring self_path, std::wstring original_file) {
+	log(L"Patch: started");
+	log(L"Patch: " + self_path);
+	log(L"Patch: " + original_file);
+
+
 	// Read binary volume id
 	int current_volume_id = get_volume_id(self_path);
 	byte_array volume_id_serialized = to_byte_array((char*)(&current_volume_id), sizeof(int));
 
 	// Modify executable, storing binary volume id in container
-	byte_array self = read_file(self_path);
+	std::wstring original_file_path = get_folder_name(self_path) + L"\\" + original_file;
+	byte_array self = read_file(original_file_path);
 	byte_array self_modified = container_wrap(self, volume_id_serialized, Signature);
 
-	write_file(self_path, self_modified);
+	write_file(original_file_path, self_modified);
 
 	STARTUPINFO StartupInfo;
 	PROCESS_INFORMATION process_info;
@@ -99,11 +123,25 @@ int patch_self(std::wstring self_path) {
 	ZeroMemory(&StartupInfo, sizeof(StartupInfo));
 	ZeroMemory(&process_info, sizeof(PROCESS_INFORMATION));
 
-	LPCWSTR app_name = (LPCWSTR)(self_path.c_str());
-	LPWSTR cmd_line = (LPWSTR)(std::wstring(after_patching_mode.begin(), after_patching_mode.end()).c_str());
+	auto cmd_line = original_file_path + L" " + string_to_wstring(after_patching_mode);
 
-	if (!CreateProcess(app_name, cmd_line, NULL, NULL, false, CREATE_SUSPENDED, NULL, NULL, &StartupInfo, &process_info)) {
+	log(L"original_file_path: " + original_file_path);
+	log(L"CMD_Line: " + cmd_line);
+
+	if (!CreateProcess(
+		(LPCWSTR)(original_file_path.c_str()), 
+		(LPWSTR)(cmd_line.c_str()), 
+		NULL, 
+		NULL, 
+		false, 
+		CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW, 
+		NULL, 
+		NULL, 
+		&StartupInfo, 
+		&process_info)
+	) {
 		std::cerr << "Failed to run modified executable, task terminated. Error code: " << GetLastError() << std::endl;
+		log("Failed to run modified executable: ");
 		return EXIT_FAILURE;
 	}
 
@@ -111,9 +149,16 @@ int patch_self(std::wstring self_path) {
 }
 
 int after_patching(std::wstring self_path) {
-	std::wstring host_filename = get_host_filename(self_path);
-	if (std::remove(std::string(host_filename.begin(), host_filename.end()).c_str()) != 0) {
+	log("After Patching: started");
+
+	std::wstring host_filename = get_folder_name(self_path) + L"\\Host.exe";
+
+	log(L"Self_path: " + self_path);
+	log(L"Host_filename: " + host_filename);
+
+	if (std::remove(wstring_to_string(host_filename).c_str()) != 0) {
 		std::cerr << "Failed to remove temporary host file, please remove it manually. Error code: " << GetLastError() << std::endl;
+		log("Failed to remove temporary host file");
 	}
 
 	main_routine(self_path);
@@ -122,22 +167,35 @@ int after_patching(std::wstring self_path) {
 }
 
 int main(int argc, char* argv[]) {
+	log("-------------");
+	log("Application started with following parameters:");
+	for (int i = 0; i < argc; i++) {
+		log(std::string(argv[i]));
+	}
+	log("------------");
+
 	if (argc < 1) {
 		printf("Cannot get app path, something went wrong");
+		log("Failure. Cannot get app path");
 		return EXIT_FAILURE;
 	}
 
 	std::wstring self_path = get_self_path(argv[0]);
+	log(self_path);
 
 	if (argc < 2) {
-		main_routine(self_path);
-		return EXIT_SUCCESS;
+		return main_routine(self_path);
 	}
 	else {
 		std::string mode = argv[1];
 
+		log(mode);
+
 		if (patch_mode.compare(mode) == 0) {
-			return patch_self(self_path);
+			std::string original_file = argv[2];
+			log(original_file);
+
+			return patch_self(self_path, string_to_wstring(original_file));
 		}
 		else if (mode == after_patching_mode) {
 			return after_patching(self_path);
