@@ -1,4 +1,5 @@
 #include "Io.h"
+#include "StringConverter.h"
 
 /***************************************************************
  *
@@ -38,7 +39,7 @@ byte_array read_file(std::wstring filename) {
  *
  **************************************************************/
 byte_array read_file(std::string filename) {
-	return read_file(std::wstring(filename.begin(), filename.end()));
+	return read_file(string_to_wstring(filename));
 }
 
 /***************************************************************
@@ -63,5 +64,5 @@ void write_file(std::wstring filename, byte_array data) {
  *
  **************************************************************/
 void write_file(std::string filename, byte_array data) {
-	write_file(std::wstring(filename.begin(), filename.end()), data);
+	write_file(string_to_wstring(filename), data);
 }
