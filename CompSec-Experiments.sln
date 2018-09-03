@@ -24,25 +24,36 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DecryptSelfFunctions", "Sou
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DecryptSelfFunctions_PostbuildEncryptor", "Supplimentary\DecryptSelfFunctions_PostbuildEncryptor\DecryptSelfFunctions_PostbuildEncryptor.vcxproj", "{57C06D63-EEB5-4708-9292-3CDA91C80445}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PartitionLock", "PartitionLock", "{EB7C0C96-CE81-43E2-AF94-30C8006A6F04}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PartitionLock", "Sources\PartitionLock\PartitionLock\PartitionLock.vcxproj", "{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PartitionLock", "Sources\PartitionLock\PartitionLock.vcxproj", "{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E979E84-6789-46C1-92B1-925485CBF67E}.Debug|x86.ActiveCfg = Debug|Win32
+		{2E979E84-6789-46C1-92B1-925485CBF67E}.Debug|x86.Build.0 = Debug|Win32
 		{2E979E84-6789-46C1-92B1-925485CBF67E}.Release|x86.ActiveCfg = Release|Win32
 		{2E979E84-6789-46C1-92B1-925485CBF67E}.Release|x86.Build.0 = Release|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF0F222D-0642-499C-897B-3404CE05944D}.Debug|x86.Build.0 = Debug|Win32
 		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.ActiveCfg = Release|Win32
 		{CF0F222D-0642-499C-897B-3404CE05944D}.Release|x86.Build.0 = Release|Win32
+		{F041040D-CF75-46F9-B228-69AF65C69A32}.Debug|x86.ActiveCfg = Debug|Win32
+		{F041040D-CF75-46F9-B228-69AF65C69A32}.Debug|x86.Build.0 = Debug|Win32
 		{F041040D-CF75-46F9-B228-69AF65C69A32}.Release|x86.ActiveCfg = Release|Win32
 		{F041040D-CF75-46F9-B228-69AF65C69A32}.Release|x86.Build.0 = Release|Win32
+		{CF8279F8-8115-45A0-9409-0E675FD35560}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF8279F8-8115-45A0-9409-0E675FD35560}.Debug|x86.Build.0 = Debug|Win32
 		{CF8279F8-8115-45A0-9409-0E675FD35560}.Release|x86.ActiveCfg = Release|Win32
 		{CF8279F8-8115-45A0-9409-0E675FD35560}.Release|x86.Build.0 = Release|Win32
+		{57C06D63-EEB5-4708-9292-3CDA91C80445}.Debug|x86.ActiveCfg = Debug|Win32
+		{57C06D63-EEB5-4708-9292-3CDA91C80445}.Debug|x86.Build.0 = Debug|Win32
 		{57C06D63-EEB5-4708-9292-3CDA91C80445}.Release|x86.ActiveCfg = Release|Win32
 		{57C06D63-EEB5-4708-9292-3CDA91C80445}.Release|x86.Build.0 = Release|Win32
+		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}.Debug|x86.ActiveCfg = Debug|Win32
+		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}.Debug|x86.Build.0 = Debug|Win32
 		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}.Release|x86.ActiveCfg = Release|Win32
 		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
@@ -55,7 +66,7 @@ Global
 		{F041040D-CF75-46F9-B228-69AF65C69A32} = {73026122-259D-44C3-82F3-E1C374DA647D}
 		{CF8279F8-8115-45A0-9409-0E675FD35560} = {73026122-259D-44C3-82F3-E1C374DA647D}
 		{57C06D63-EEB5-4708-9292-3CDA91C80445} = {7A5141C0-C708-4867-891C-C621F6599DCC}
-		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A} = {EB7C0C96-CE81-43E2-AF94-30C8006A6F04}
+		{B0DF5CF2-B3DD-43C0-9083-D2AF4741F64A} = {73026122-259D-44C3-82F3-E1C374DA647D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A29DDE52-7A36-4824-A37B-FDE2BE2975E0}

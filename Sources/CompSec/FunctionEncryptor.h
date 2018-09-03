@@ -6,8 +6,8 @@
 #include "Injector.h"
 #include "ByteArray.h"
 
-const char PreRetVal = 0x5D;
-const char RetVal = 0xC3;
+const unsigned char PreRetVal = 0x5D;
+const unsigned char RetVal = 0xC3;
 
 /***************************************************************
  *
