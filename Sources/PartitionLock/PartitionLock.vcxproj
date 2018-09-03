@@ -80,7 +80,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\CompSec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CompSec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,7 +94,7 @@
     <ClCompile Include="Solution.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CompSec\CompSec.vcxproj">
+    <ProjectReference Include="..\CompSec\CompSec.vcxproj">
       <Project>{cf0f222d-0642-499c-897b-3404ce05944d}</Project>
     </ProjectReference>
   </ItemGroup>
