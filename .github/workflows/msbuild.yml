@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  SOLUTION_FILE_PATH: ./CompsecExperiments.sln
+  SOLUTION_FILE_PATH: ./CompSec-Experiments.sln
   BUILD_CONFIGURATION: Release
 
 jobs:
